@@ -19,9 +19,7 @@ type HourlyTraffic = {
   free_flow_avg: number;
 };
 
-const BASE_URL =
-  (import.meta.env.VITE_API_BASE as string) ||
-  "http://127.0.0.1:8000/api/analytics";
+const BASE_URL = "https://urbanpulse-api-1.onrender.com/api/analytics";
 
 export default function TrafficPage() {
   const [data, setData] = useState<HourlyTraffic[]>([]);

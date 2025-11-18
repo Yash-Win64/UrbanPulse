@@ -1,8 +1,3 @@
-"""
-Background Scheduler for UrbanPulse
-Runs the collector every X seconds (set in .env)
-This file is executed only by the Render Worker Service.
-"""
 
 import time
 import logging

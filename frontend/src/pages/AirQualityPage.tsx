@@ -65,7 +65,7 @@ export default function AirQualityPage() {
   useEffect(() => {
     const fetchLive = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/air_quality");
+        const res = await fetch("https://urbanpulse-api-1.onrender.com/air_quality");
         const d = await res.json();
         setLive(d.air_quality);
       } catch (e) {
@@ -316,7 +316,6 @@ export default function AirQualityPage() {
             </tbody>
           </table>
         </div>
-
         <motion.div
           className="text-center text-slate-500 text-xs mt-4"
           initial={{ opacity: 0 }}

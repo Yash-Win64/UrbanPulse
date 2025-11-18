@@ -28,6 +28,8 @@ interface AirData {
   samples: number;
 }
 
+const BASE_URL = "https://urbanpulse-api-1.onrender.com/api";
+
 export default function Dashboard() {
   const [traffic, setTraffic] = useState<TrafficData[]>([]);
   const [weather, setWeather] = useState<WeatherData[]>([]);
@@ -38,10 +40,11 @@ export default function Dashboard() {
     const fetchAll = async () => {
       try {
         const [t, w, a] = await Promise.all([
-          axios.get("http://127.0.0.1:8000/api/traffic/hourly"),
-          axios.get("http://127.0.0.1:8000/api/weather/hourly"),
-          axios.get("http://127.0.0.1:8000/api/air/hourly"),
+          axios.get(`${BASE_URL}/traffic/hourly`),
+          axios.get(`${BASE_URL}/weather/hourly`),
+          axios.get(`${BASE_URL}/air/hourly`),
         ]);
+
         setTraffic(t.data);
         setWeather(w.data);
         setAir(a.data);
@@ -55,11 +58,18 @@ export default function Dashboard() {
     fetchAll();
   }, []);
 
-  if (loading) return <div className="text-center mt-10 text-xl text-gray-600">Loading dashboard...</div>;
+  if (loading)
+    return (
+      <div className="text-center mt-10 text-xl text-gray-600">
+        Loading dashboard...
+      </div>
+    );
 
   return (
     <div className="p-6 space-y-8">
-      <h1 className="text-3xl font-bold text-center text-blue-600">UrbanPulse Dashboard</h1>
+      <h1 className="text-3xl font-bold text-center text-blue-600">
+        UrbanPulse Dashboard
+      </h1>
 
       {/* Traffic Section */}
       <section className="bg-white rounded-2xl shadow-lg p-5">

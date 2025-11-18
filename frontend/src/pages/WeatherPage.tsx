@@ -17,9 +17,7 @@ type HourlyWeather = {
   avg_wind_speed?: number | null;
 };
 
-const BASE_URL =
-  (import.meta.env.VITE_API_BASE as string) ||
-  "http://127.0.0.1:8000/api/analytics";
+const BASE_URL = "https://urbanpulse-api-1.onrender.com/api/analytics";
 
 export default function WeatherPage() {
   const [data, setData] = useState<HourlyWeather[]>([]);
