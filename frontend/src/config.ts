@@ -1,4 +1,2 @@
-// src/config.ts
 export const BASE_URL =
-  import.meta.env.VITE_API_BASE || "https://urbanpulse-api-1.onrender.com/api";
-
+  import.meta.env.VITE_API_URL || "https://urbanpulse-1.onrender.com";
