@@ -6,29 +6,23 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Example: replace with your actual database URL
-DATABASE_URL = os.getenv("DATABASE_URL", "mysql+pymysql://root:password@localhost/urbanpulse")
+# Fallback to SQLite if DATABASE_URL is missing or invalid
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./urbanpulse.db")
 
-engine = create_engine(DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
+# Detect SQLite and enable required flags
+connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
 
-db_url = os.getenv("DATABASE_URL")
-
-# Add SSL configuration for Aiven MySQL
 engine = create_engine(
-    db_url,
-    connect_args={
-        "ssl": {
-            "ssl_ca": "/etc/ssl/certs/ca-certificates.crt"
-        }
-    }
+    DATABASE_URL,
+    connect_args=connect_args
 )
 
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# ✅ Add this function at the end
+Base = declarative_base()
+
 def get_db():
-    """FastAPI dependency to get a DB session."""
+    """FastAPI dependency to get database session"""
     db = SessionLocal()
     try:
         yield db
